@@ -6,7 +6,6 @@ const GOOGLE_CLIENT_ID =
 class GoogleAuth extends React.Component {
 	state = {
 		auth2: null,
-		authLoaded: null,
 		buttonText: "",
 		clickAction: () => {},
 	};
@@ -17,7 +16,7 @@ class GoogleAuth extends React.Component {
 				.init({ clientId: GOOGLE_CLIENT_ID })
 				.then((auth2) => {
 					console.log("GoogleAuth loaded..OK");
-					this.setState({ auth2: auth2, authLoaded: true });
+					this.setState({ auth2: auth2 });
 					this.updateLoginButton();
 				});
 		});
