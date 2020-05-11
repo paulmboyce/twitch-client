@@ -4,11 +4,8 @@ const GOOGLE_CLIENT_ID =
 	"931872608637-0n3q7ru6jisa5g43rofhtkru2daou7gq.apps.googleusercontent.com";
 
 class GoogleAuth extends React.Component {
-	state = {
-		auth2: null,
-		buttonText: "",
-		clickAction: () => {},
-	};
+	state = { signedIn: null };
+	auth2 = null;
 
 	componentDidMount = () => {
 		window.gapi.load("auth2", () => {
@@ -16,59 +13,61 @@ class GoogleAuth extends React.Component {
 				.init({ clientId: GOOGLE_CLIENT_ID })
 				.then((auth2) => {
 					console.log("GoogleAuth loaded..OK");
-					this.setState({ auth2: auth2 });
-					this.updateLoginButton();
+					this.auth2 = auth2;
+					this.setState({
+						signedIn: auth2.isSignedIn.get(),
+					});
 				});
 		});
 	};
 
 	logIn = () => {
-		this.state.auth2.signIn({ scope: "profile email" }).then(
+		this.auth2.signIn({ scope: "profile email" }).then(
 			(user) => {
-				console.log("Logged in OK, user: ", user);
-				this.updateLoginButton();
+				console.log("Logged in OK: ", user);
+				this.setState({ signedIn: true });
 			},
 			function rejected(err) {
-				console.log("HOUSTON.. we have an: ", err);
+				console.log("Error: ", err);
 			}
 		);
 	};
 
 	logOut = () => {
-		this.state.auth2.signOut().then(() => {
-			console.log("User Logged Out: OK");
-			this.updateLoginButton();
+		this.auth2.signOut().then(() => {
+			console.log("Logged Out OK");
+			this.setState({ signedIn: false });
 		});
 	};
 
-	updateLoginButton = function () {
-		const signedIn = this.state.auth2.isSignedIn.get();
-		if (signedIn) {
-			this.setState({
-				buttonText: "Log Out",
-				clickAction: this.logOut,
-			});
-		} else {
-			this.setState({
-				buttonText: "Log in with Google",
-				clickAction: this.logIn,
-			});
-		}
-	};
-
 	render() {
-		return (
-			<div>
+		if (this.state.signedIn == null) {
+			return <div>Waiting...</div>;
+		}
+
+		if (this.state.signedIn) {
+			return (
 				<div
 					className="ui primary button"
 					onClick={() => {
-						this.state.clickAction();
+						this.logOut();
 					}}
 				>
-					{this.state.buttonText}
+					Log Out
 				</div>
-			</div>
-		);
+			);
+		} else {
+			return (
+				<div
+					className="ui primary button"
+					onClick={() => {
+						this.logIn();
+					}}
+				>
+					Log in with Google
+				</div>
+			);
+		}
 	}
 }
 
