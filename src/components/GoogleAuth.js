@@ -14,18 +14,20 @@ class GoogleAuth extends React.Component {
 				.then((auth2) => {
 					console.log("GoogleAuth loaded..OK");
 					this.auth2 = auth2;
-					this.setState({
-						signedIn: auth2.isSignedIn.get(),
-					});
+					this.setSignInState(auth2.isSignedIn.get());
+					auth2.isSignedIn.listen(this.setSignInState);
 				});
 		});
+	};
+
+	setSignInState = (isSignedIn) => {
+		this.setState({ signedIn: isSignedIn });
 	};
 
 	logIn = () => {
 		this.auth2.signIn({ scope: "profile email" }).then(
 			(user) => {
 				console.log("Logged in OK: ", user);
-				this.setState({ signedIn: true });
 			},
 			function rejected(err) {
 				console.log("Error: ", err);
@@ -36,7 +38,6 @@ class GoogleAuth extends React.Component {
 	logOut = () => {
 		this.auth2.signOut().then(() => {
 			console.log("Logged Out OK");
-			this.setState({ signedIn: false });
 		});
 	};
 
