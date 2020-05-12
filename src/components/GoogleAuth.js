@@ -62,7 +62,7 @@ class GoogleAuth extends React.Component {
 }
 
 const mapStateToProps = (state, props) => {
-	return { signedIn: state.isLoggedIn };
+	return { signedIn: state.loginStatus.isLoggedIn };
 };
 
 const reduxConnected = connect(mapStateToProps, {
