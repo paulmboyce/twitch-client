@@ -11,15 +11,12 @@ const GOOGLE_CLIENT_ID =
 	"931872608637-0n3q7ru6jisa5g43rofhtkru2daou7gq.apps.googleusercontent.com";
 
 class GoogleAuth extends React.Component {
-	auth2 = null;
-
 	componentDidMount = () => {
 		window.gapi.load("auth2", () => {
 			window.gapi.auth2
 				.init({ clientId: GOOGLE_CLIENT_ID })
 				.then((auth2) => {
 					console.log("GoogleAuth loaded..OK");
-					this.auth2 = auth2;
 					auth2.isSignedIn.listen(this.props.onAuthChangeAction);
 					this.initStatus(auth2.isSignedIn.get());
 				});
@@ -61,7 +58,7 @@ class GoogleAuth extends React.Component {
 	}
 }
 
-const mapStateToProps = (state, props) => {
+const mapStateToProps = function (state, props) {
 	return { signedIn: state.loginStatus.isLoggedIn };
 };
 
