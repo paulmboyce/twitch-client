@@ -16,17 +16,17 @@ class GoogleAuth extends React.Component {
 				.then((auth2) => {
 					console.log("GoogleAuth loaded..OK");
 					this.auth2 = auth2;
-					auth2.isSignedIn.listen(this.signInListener);
+					auth2.isSignedIn.listen(this.onAuthChange);
 					this.initStatus(auth2.isSignedIn.get());
 				});
 		});
 	};
 
 	initStatus = (isSignedIn) => {
-		this.signInListener(isSignedIn);
+		this.onAuthChange(isSignedIn);
 	};
 
-	signInListener = (isSignedIn) => {
+	onAuthChange = (isSignedIn) => {
 		if (isSignedIn) {
 			this.props.logInAction();
 		} else {
