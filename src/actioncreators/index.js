@@ -1,6 +1,12 @@
+import { LOGGED_IN, LOGGED_OUT } from "./types";
+
 function onAuthChangeAction(isSignedIn) {
 	if (isSignedIn) {
-		return logInAction();
+		let userId = window.gapi.auth2
+			.getAuthInstance()
+			.currentUser.get()
+			.getId();
+		return logInAction(userId);
 	} else {
 		return logOutAction();
 	}
@@ -25,7 +31,7 @@ function trySignInAction() {
 			.then(
 				(user) => {
 					console.log("Logged IN: ", user);
-					dispatch(logInAction);
+					dispatch(logInAction(user.getId()));
 				},
 				function rejected(err) {
 					console.log("Error: ", err);
@@ -34,15 +40,18 @@ function trySignInAction() {
 	};
 }
 
-function logInAction() {
+function logInAction(userId) {
 	return {
-		type: "LOGGED_IN",
+		type: LOGGED_IN,
+		payload: {
+			userId: userId,
+		},
 	};
 }
 
 function logOutAction() {
 	return {
-		type: "LOGGED_OUT",
+		type: LOGGED_OUT,
 	};
 }
 
