@@ -14,7 +14,7 @@ function authReducer(isLoggedInState = INITIAL_STATE, action) {
 			};
 		}
 		case LOGGED_OUT: {
-			return { ...isLoggedInState, isLoggedIn: false };
+			return { ...isLoggedInState, isLoggedIn: false, userId: null };
 		}
 		default:
 			return isLoggedInState;
