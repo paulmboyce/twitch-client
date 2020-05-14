@@ -1,30 +1,20 @@
 import React from "react";
 import { Field, reduxForm } from "redux-form";
 
-const validate = function (values) {
-	const errors = {};
-	if (!values.title) {
-		errors.title = "Must have a title.";
-	}
-	if (!values.description) {
-		errors.description = "Must have a description.";
-	}
-	return errors;
-};
-
 class StreamCreate extends React.Component {
 	onSubmit = function (fields) {
 		console.log("SUBMIT:", fields);
 	};
 
-	renderError = function (error, touched) {
+	renderError = function ({ error, touched }) {
 		if (touched && error) {
 			return <div className="ui pointing red basic label">{error}</div>;
 		}
 		return null;
 	};
 
-	renderField = ({ input, label, meta: { error, touched } }) => {
+	renderInput = ({ input, label, meta }) => {
+		const { error, touched } = meta;
 		const fieldClass = `field ${error && touched ? "error" : ""}`;
 		return (
 			<div className={fieldClass}>
@@ -34,7 +24,7 @@ class StreamCreate extends React.Component {
 					className="ui input"
 					autoComplete="off"
 				></input>
-				{this.renderError(error, touched)}
+				{this.renderError(meta)}
 			</div>
 		);
 	};
@@ -51,13 +41,13 @@ class StreamCreate extends React.Component {
 						name="title"
 						label="Title"
 						type="text"
-						component={this.renderField}
+						component={this.renderInput}
 					/>
 					<Field
 						name="description"
 						label="Description"
 						type="text"
-						component={this.renderField}
+						component={this.renderInput}
 					/>
 					<button type="submit" className="ui primary button">
 						Submit
@@ -67,6 +57,17 @@ class StreamCreate extends React.Component {
 		);
 	}
 }
+
+const validate = function (values) {
+	const errors = {};
+	if (!values.title) {
+		errors.title = "Must have a title.";
+	}
+	if (!values.description) {
+		errors.description = "Must have a description.";
+	}
+	return errors;
+};
 
 const form = reduxForm({ form: "createStream", validate: validate })(
 	StreamCreate
