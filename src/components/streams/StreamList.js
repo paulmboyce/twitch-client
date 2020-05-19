@@ -36,7 +36,7 @@ class StreamList extends React.Component {
 	render() {
 		return (
 			<div>
-				<div className="ui clearing green segment">
+				<div className="ui clearing green padded segment">
 					<h1>Streams</h1>
 					<Link className="" to="/streams/new">
 						<div className="ui right floated button green">
