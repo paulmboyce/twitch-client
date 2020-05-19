@@ -32,6 +32,7 @@ const editStream = function (stream) {
 };
 
 const deleteStream = function (id) {
+	console.log(`DELETE ID ${id}...`);
 	return function (dispatch) {
 		axiosStream.delete(`/streams/${id}`).then(function (response) {
 			dispatch({
@@ -56,9 +57,13 @@ const getStream = function (id) {
 const getStreams = function () {
 	return function (dispatch) {
 		axiosStream.get(`/streams`).then(function (response) {
+			let streams = {};
+			response.data.forEach(function (stream) {
+				streams[stream.id] = stream;
+			});
 			dispatch({
 				type: GET_STREAMS,
-				payload: { streams: response.data },
+				payload: { streams: streams },
 			});
 		});
 	};

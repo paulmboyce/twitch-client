@@ -5,8 +5,10 @@ import {
 	GET_STREAM,
 	GET_STREAMS,
 } from "../actioncreators/types";
+import { act } from "react-dom/test-utils";
 
 const streamReducer = function (oldStreams = {}, action) {
+	console.log(action.type);
 	switch (action.type) {
 		case CREATE_STREAM: {
 			return {
@@ -31,7 +33,13 @@ const streamReducer = function (oldStreams = {}, action) {
 
 		case DELETE_STREAM: {
 			let streams = { ...oldStreams };
-			return delete streams[action.payload.id];
+			console.log(
+				`STREAMS: before delete id:${action.payload.id}`,
+				streams
+			);
+			delete streams[action.payload.id];
+			console.log("STREAMS: after", streams);
+			return streams;
 		}
 
 		default: {
