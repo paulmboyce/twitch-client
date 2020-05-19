@@ -1,4 +1,11 @@
 import { LOGGED_IN, LOGGED_OUT } from "./types";
+import {
+	createStream,
+	editStream,
+	deleteStream,
+	getStream,
+	getStreams,
+} from "./streamDataActions";
 
 function onAuthChangeAction(isSignedIn) {
 	if (isSignedIn) {
@@ -55,4 +62,13 @@ function logOutAction() {
 	};
 }
 
-export { trySignInAction, trySignOutAction, onAuthChangeAction };
+export {
+	trySignInAction,
+	trySignOutAction,
+	onAuthChangeAction,
+	createStream,
+	editStream,
+	deleteStream,
+	getStream,
+	getStreams,
+};

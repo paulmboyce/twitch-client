@@ -10,7 +10,7 @@ const Header = () => {
 				Twisher
 			</Link>
 			<div className="right menu">
-				<Link to="/streams/show" className="item">
+				<Link to="/" className="item">
 					All Streams
 				</Link>
 				<div className="item">
