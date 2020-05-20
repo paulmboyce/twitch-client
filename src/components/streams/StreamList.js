@@ -10,7 +10,7 @@ class StreamList extends React.Component {
 	}
 
 	renderStreams = function (streams) {
-		return Object.values(streams).map((stream) => {
+		return streams.map((stream) => {
 			return (
 				<div className="ui item padded segment" key={stream.id}>
 					<div className="right floated content">
@@ -53,7 +53,7 @@ class StreamList extends React.Component {
 }
 
 const mapStateToProps = function (state, oldProps) {
-	return { streams: state.streams };
+	return { streams: Object.values(state.streams) };
 };
 
 const reduxStreamlist = connect(mapStateToProps, { getStreams, deleteStream })(
