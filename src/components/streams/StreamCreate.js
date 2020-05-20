@@ -6,6 +6,7 @@ import { createStream } from "../../actioncreators";
 class StreamCreate extends React.Component {
 	onSubmit = (fields) => {
 		console.log("SUBMIT:", fields);
+		fields.userId = this.props.loginStatus.userId;
 		this.props.createStream(fields);
 	};
 
@@ -76,5 +77,9 @@ const form = reduxForm({ form: "createStream", validate: validate })(
 	StreamCreate
 );
 
-const connectedForm = connect(null, { createStream })(form);
+const mapStateToProps = function (state) {
+	return { loginStatus: state.loginStatus };
+};
+
+const connectedForm = connect(mapStateToProps, { createStream })(form);
 export { connectedForm as StreamCreate };
