@@ -9,7 +9,7 @@ import {
 
 const createStream = function (stream) {
 	return function (dispatch, getState) {
-		const { userId } = getState().loginStatus;
+		const { userId } = getState().auth;
 		axiosStream
 			.post("/streams", { ...stream, userId })
 			.then(function (response) {

@@ -5,7 +5,7 @@ import { authReducer } from "./AuthReducer";
 import { streamReducer } from "./StreamReducer";
 
 const reducers = combineReducers({
-	loginStatus: authReducer,
+	auth: authReducer,
 	form: formReducer,
 	streams: streamReducer,
 });
