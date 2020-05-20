@@ -7,14 +7,17 @@ import {
 	GET_STREAMS,
 } from "./types";
 
-const createStream = function (newStream) {
-	return function (dispatch) {
-		axiosStream.post("/streams", newStream).then(function (response) {
-			dispatch({
-				type: CREATE_STREAM,
-				payload: { stream: response.data },
+const createStream = function (stream) {
+	return function (dispatch, getState) {
+		const { userId } = getState().loginStatus;
+		axiosStream
+			.post("/streams", { ...stream, userId })
+			.then(function (response) {
+				dispatch({
+					type: CREATE_STREAM,
+					payload: { stream: response.data },
+				});
 			});
-		});
 	};
 };
 
