@@ -49,7 +49,6 @@ class StreamList extends React.Component {
 
 	renderCreateIfLoggedIn = () => {
 		let { loginStatus } = this.props;
-		console.log("STATUS:", loginStatus);
 		if (loginStatus && loginStatus.isLoggedIn === true) {
 			return (
 				<Link className="" to="/streams/new">
@@ -78,7 +77,6 @@ class StreamList extends React.Component {
 }
 
 const mapStateToProps = function (state, oldProps) {
-	console.log("STATE:", state);
 	return {
 		streams: Object.values(state.streams),
 		loginStatus: state.loginStatus,

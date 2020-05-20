@@ -8,7 +8,6 @@ import {
 import { mapArrayToKeyedObject } from "../utils";
 
 const streamReducer = function (oldState = {}, action) {
-	console.log(action.type);
 	switch (action.type) {
 		case CREATE_STREAM: {
 			return {
