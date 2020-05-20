@@ -10,9 +10,8 @@ class StreamList extends React.Component {
 	}
 
 	renderEditButtons = (stream) => {
-		let { auth } = this.props;
-
-		if (auth && auth.isLoggedIn && stream.userId === auth.userId) {
+		let { userId: currentUserId } = this.props.auth;
+		if (stream.userId === currentUserId) {
 			return (
 				<div className="right floated content">
 					<div className="ui button">Edit</div>
