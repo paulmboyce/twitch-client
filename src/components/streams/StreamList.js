@@ -46,10 +46,11 @@ class StreamList extends React.Component {
 		let { auth } = this.props;
 		if (auth && auth.isLoggedIn === true) {
 			return (
-				<Link className="" to="/streams/new">
-					<div className="ui right floated button green">
-						Add Stream
-					</div>
+				<Link
+					to="/streams/new"
+					className="ui right floated button green"
+				>
+					Add Stream
 				</Link>
 			);
 		}
