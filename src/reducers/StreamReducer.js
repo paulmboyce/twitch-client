@@ -18,7 +18,15 @@ const streamReducer = function (oldState = {}, action) {
 		}
 
 		case GET_STREAMS: {
-			return mapArrayToKeyedObject(action.payload.streams);
+			// NOTE: Here we a actually merging ALL new state into ALL existing state.
+			// In reality, our PAyload state should supersede the oldStae entirely,
+			// So it is moot if we need to include the '...oldState'.
+			// In the minimum case, consider this a full merge of objects, overwriting
+			// the old with the new.
+			return {
+				...oldState,
+				...mapArrayToKeyedObject(action.payload.streams),
+			};
 		}
 
 		case GET_STREAM: {
