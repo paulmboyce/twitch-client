@@ -7,12 +7,12 @@ import {
 } from "../actioncreators/types";
 import { mapArrayToKeyedObject } from "../utils";
 
-const streamReducer = function (oldStreams = {}, action) {
+const streamReducer = function (oldState = {}, action) {
 	console.log(action.type);
 	switch (action.type) {
 		case CREATE_STREAM: {
 			return {
-				...oldStreams,
+				...oldState,
 				[action.payload.stream.id]: action.payload.stream,
 			};
 		}
@@ -23,26 +23,26 @@ const streamReducer = function (oldStreams = {}, action) {
 
 		case GET_STREAM: {
 			return {
-				...oldStreams,
+				...oldState,
 				[action.payload.stream.id]: action.payload.stream,
 			};
 		}
 
 		case EDIT_STREAM: {
 			return {
-				...oldStreams,
+				...oldState,
 				[action.payload.stream.id]: action.payload.stream,
 			};
 		}
 
 		case DELETE_STREAM: {
-			let streams = { ...oldStreams };
+			let streams = { ...oldState };
 			delete streams[action.payload.id];
 			return streams;
 		}
 
 		default: {
-			return oldStreams;
+			return oldState;
 		}
 	}
 };
