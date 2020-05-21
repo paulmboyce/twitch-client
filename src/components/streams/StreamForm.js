@@ -4,10 +4,6 @@ import { connect } from "react-redux";
 import { createStream } from "../../actioncreators";
 
 class StreamForm extends React.Component {
-	onSubmit = (fields) => {
-		this.props.createStream(fields);
-	};
-
 	renderError = function ({ error, touched }) {
 		if (touched && error) {
 			return <div className="ui pointing red basic label">{error}</div>;
@@ -34,10 +30,10 @@ class StreamForm extends React.Component {
 	render() {
 		return (
 			<div>
-				<h1>Create a Stream</h1>
+				<h1>{this.props.title}</h1>
 				<form
 					className="ui form"
-					onSubmit={this.props.handleSubmit(this.onSubmit)}
+					onSubmit={this.props.handleSubmit(this.props.onSubmit)}
 				>
 					<Field
 						name="title"

@@ -1,7 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { getStream } from "../../actioncreators";
+import { StreamForm } from "./StreamForm";
+import { getStream, editStream } from "../../actioncreators";
 
 class StreamEdit extends React.Component {
 	componentDidMount = () => {
@@ -12,6 +13,10 @@ class StreamEdit extends React.Component {
 		}
 	};
 
+	onSubmit = (fields) => {
+		this.props.editStream(fields, this.props.match.params.id);
+	};
+
 	render() {
 		const { stream } = this.props;
 		console.log("PROPS: ", this.props);
@@ -20,6 +25,7 @@ class StreamEdit extends React.Component {
 				StreamEdit STREAM: {this.props.match.params.id}
 				<p>TITLE: {stream ? stream.title : null}</p>
 				<p>DESC: {stream ? stream.description : null}</p>
+				<StreamForm title="Stream Edit" onSubmit={this.onSubmit} />
 			</div>
 		);
 	}
@@ -31,5 +37,7 @@ const mapStateToProps = function (state, oldProps) {
 	return { stream: state.streams[oldProps.match.params.id] };
 };
 
-const connected = connect(mapStateToProps, { getStream })(StreamEdit);
+const connected = connect(mapStateToProps, { getStream, editStream })(
+	StreamEdit
+);
 export { connected as StreamEdit };

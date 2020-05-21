@@ -8,11 +8,11 @@ import {
 	GET_STREAMS,
 } from "./types";
 
-const createStream = function (stream) {
+const createStream = function (formValues) {
 	return function (dispatch, getState) {
 		const { userId } = getState().auth;
 		axiosStream
-			.post("/streams", { ...stream, userId })
+			.post("/streams", { ...formValues, userId })
 			.then(function (response) {
 				dispatch({
 					type: CREATE_STREAM,
@@ -24,15 +24,17 @@ const createStream = function (stream) {
 	};
 };
 
-const editStream = function (stream) {
-	return function (dispatch) {
+const editStream = function (formValues, id) {
+	return function (dispatch, getState) {
+		const { userId } = getState().auth;
 		axiosStream
-			.put(`/streams/${stream.id}`, stream)
+			.put(`/streams/${id}`, { ...formValues, userId })
 			.then(function (response) {
 				dispatch({
 					type: EDIT_STREAM,
 					payload: { stream: response.data },
 				});
+				history.push("/");
 			});
 	};
 };
