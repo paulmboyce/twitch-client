@@ -1,4 +1,5 @@
 import { axiosStream } from "../api/axiosStreams";
+import { history } from "../history";
 import {
 	CREATE_STREAM,
 	EDIT_STREAM,
@@ -17,7 +18,9 @@ const createStream = function (stream) {
 					type: CREATE_STREAM,
 					payload: { stream: response.data },
 				});
+				history.push("/");
 			});
+		// .err(() => {  Show Errors })
 	};
 };
 
@@ -35,7 +38,6 @@ const editStream = function (stream) {
 };
 
 const deleteStream = function (id) {
-	console.log(`DELETE ID ${id}...`);
 	return function (dispatch) {
 		axiosStream.delete(`/streams/${id}`).then(function () {
 			dispatch({
