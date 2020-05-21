@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { getStreams, deleteStream } from "../../actioncreators";
-import { history } from "../../history";
 
 class StreamList extends React.Component {
 	componentDidMount() {
@@ -15,14 +14,12 @@ class StreamList extends React.Component {
 		if (stream.userId === currentUserId) {
 			return (
 				<div className="right floated content">
-					<div
+					<Link
 						className="ui button"
-						onClick={() => {
-							history.push(`/streams/edit/${stream.id}`);
-						}}
+						to={`/streams/edit/${stream.id}`}
 					>
 						Edit
-					</div>
+					</Link>
 					<div
 						className="ui button"
 						onClick={() => {
