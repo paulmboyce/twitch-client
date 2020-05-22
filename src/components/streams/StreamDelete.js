@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 import { ModalFragment } from "../ModalFragment";
 import { getStream, deleteStream } from "../../actioncreators";
+import { history } from "../../history";
 
 class StreamDelete extends React.Component {
 	componentDidMount = () => {
@@ -16,6 +17,9 @@ class StreamDelete extends React.Component {
 		this.props.deleteStream(this.props.match.params.id);
 	};
 
+	cancelAction = function () {
+		history.push("/");
+	};
 	renderActions() {
 		return (
 			<React.Fragment>
@@ -48,7 +52,7 @@ class StreamDelete extends React.Component {
 				<ModalFragment
 					header="DELETE STREAM"
 					message={`Want to delete Stream "${stream.title}"?`}
-					cancelLink="/"
+					cancelAction={this.cancelAction}
 					actions={this.renderActions()}
 				/>
 			</div>
