@@ -26,9 +26,8 @@ const createStream = function (formValues) {
 
 const editStream = function (formValues, id) {
 	return function (dispatch, getState) {
-		const { userId } = getState().auth;
 		axiosStream
-			.put(`/streams/${id}`, { ...formValues, userId })
+			.patch(`/streams/${id}`, { ...formValues })
 			.then(function (response) {
 				dispatch({
 					type: EDIT_STREAM,
