@@ -21,7 +21,8 @@ class StreamDelete extends React.Component {
 				<h1>StreamDelete</h1>
 				{match.params.id}
 				<Modal
-					message={`Want to delete Stream ${stream.title}?`}
+					header="DELETE STREAM"
+					message={`Want to delete Stream "${stream.title}"?`}
 					yesLink="/"
 					noLink="/"
 					yesAction={() => {
