@@ -19,20 +19,19 @@ class StreamEdit extends React.Component {
 	};
 
 	render() {
-		const { stream } = this.props;
 		console.log("PROPS: ", this.props);
-		if (!stream) {
+
+		if (!this.props.stream) {
 			return <div>Loading...</div>;
 		}
+
+		const { title, description } = this.props.stream;
 		return (
 			<div>
 				<h1>Edit Stream</h1>
 				<StreamForm
 					onSubmit={this.onSubmit}
-					initialValues={{
-						title: stream.title,
-						description: stream.description,
-					}}
+					initialValues={{ title, description }}
 				/>
 			</div>
 		);
