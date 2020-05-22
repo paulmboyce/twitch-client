@@ -20,14 +20,12 @@ class StreamList extends React.Component {
 					>
 						Edit
 					</Link>
-					<div
+					<Link
 						className="ui button"
-						onClick={() => {
-							this.props.deleteStream(stream.id);
-						}}
+						to={`/streams/delete/${stream.id}`}
 					>
 						Delete
-					</div>
+					</Link>
 				</div>
 			);
 		}

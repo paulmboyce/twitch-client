@@ -8,7 +8,6 @@ import { StreamEdit } from "./streams/StreamEdit";
 import { StreamDelete } from "./streams/StreamDelete";
 import { StreamShow } from "./streams/StreamShow";
 import { history } from "../history";
-
 const App = function () {
 	return (
 		<div className="ui container">
@@ -17,7 +16,7 @@ const App = function () {
 				<Route path="/" exact component={StreamList} />
 				<Route path="/streams/new" component={StreamCreate} />
 				<Route path="/streams/edit/:id" component={StreamEdit} />
-				<Route path="/streams/delete" component={StreamDelete} />
+				<Route path="/streams/delete/:id" component={StreamDelete} />
 				<Route path="/streams/show" component={StreamShow} />
 			</Router>
 		</div>
